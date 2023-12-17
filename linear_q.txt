@@ -1,0 +1,63 @@
+// 5. Implement the following functions of Linear Queue
+// a. Insert(element): Inserts a particular element in the queue
+// b. DelQue(): removes the element from the queue
+// c. Display()
+
+var front
+var rear
+
+class queue{
+    constructor(data){
+        this.data = data
+        this.next = null
+    }
+}
+
+function insert(data){
+    if (front == null) {
+        front = new queue(data)
+        rear = front
+        console.log(data+ " is inserted")
+    } 
+    else {
+        var newnode = new queue(data)
+        rear.next = newnode
+        rear = newnode
+        console.log(data+ " is inserted");
+    }
+}
+
+function delQue() {
+    if (front == null) {
+        console.log("Queue is empty")
+    } 
+    else {
+        var temp = front
+        front = temp.next
+        temp.next = null
+        console.log(temp.data+ " is removed");
+    }
+}
+
+function display() {
+    if (front == null) {
+        console.log("Queue is Empty")
+    } 
+    else {
+        console.log("Queue :")
+        var temp = front
+        while (temp!=rear.next) {
+            process.stdout.write(temp.data+" ")
+            temp = temp.next
+        }
+        console.log()
+    }
+}
+
+insert(10)
+insert(20)
+insert(30)
+insert(40)
+display()
+delQue()
+display()

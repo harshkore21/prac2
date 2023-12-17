@@ -1,0 +1,81 @@
+// 7. Implement the following operations of circular Queue (using Arrray)
+// a. Insert(element)
+// b. DelQue()
+// c. Display()
+
+class circularQueue{
+    constructor(size){
+        this.maxSize = size
+        this.queue = new Array(size)
+        this.front = -1
+        this.rear = -1
+    }
+
+    isEmpty(){
+        return this.front === -1
+    }
+
+    isFull(){
+        return (this.rear + 1) % this.maxSize === this.front
+    }
+
+    insert(element){
+        if (this.isFull()) {
+            console.log("Queue is full. Cannot insert");
+            return
+        }
+
+        if (this.isEmpty()) {
+            this.front = 0
+        }
+
+        this.rear = (this.rear + 1) % this.maxSize
+        this.queue[this.rear] = element
+        console.log(`Inserted ${element} into the queue`)
+    }
+
+    delQue(){
+        if (this.isEmpty()) {
+            console.log("Queue is empty. Cannot delete")
+            return
+        }
+
+        const deletedElement = this.queue[this.front]
+        if (this.front === this.rear) {
+            this.front = this.rear = -1
+        } 
+        else {
+            this.front = (this.front + 1) % this.maxSize
+        }
+        console.log(`Deleted ${deletedElement} from the queue`);
+    }
+
+    display(){
+        if (this.isEmpty()) {
+            console.log("Queue is Empty")
+            return
+        }
+
+        console.log("Queue elements: ")
+        let index = this.front
+        while(index !== this.rear){
+            console.log(this.queue[index])
+            index = (index + 1) % this.maxSize
+        }
+        console.log(this.queue[this.rear])
+    }
+}
+
+const queue = new circularQueue(5)
+
+queue.insert(10)
+queue.insert(20)
+queue.insert(30)
+queue.insert(40)
+
+queue.display()
+
+queue.delQue()
+queue.delQue()
+
+queue.display()

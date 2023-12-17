@@ -1,0 +1,39 @@
+// 6. Implement the rain terraces algorithm (trapping rain water)
+
+function trapRainWater(height) {
+    const n = height.length
+    if(n <= 2) return 0 // not enough terrace to trap water
+
+    const leftMax = new Array(n).fill(0)
+    const rightMax = new Array(n).fill(0)
+    let waterTrapped = 0
+
+    // Calculate Max height to the left of each terrace
+    leftMax[0] = height[0]
+    for(let i = 1; i < n; i++){
+        leftMax[i] = Math.max(leftMax[i - 1], height[i])
+    }
+    
+    // Calculate Max height to the right of each terrace
+    rightMax[n - 1] = height[n - 1]
+    for(let i = n - 2; i >= 0; i--){
+        rightMax[i] = Math.max(rightMax[i + 1], height[i])
+    }
+    
+    // Calculate the trapped water for each terrace
+    for(let i = 0; i < n; i++){
+        const minMax = Math.min(leftMax[i], rightMax[i])
+        const trappedAtTerrace = minMax - height[i]
+        if (trappedAtTerrace > 0) {
+            waterTrapped += trappedAtTerrace
+        }
+
+        // Display step by step
+        console.log(`Step ${i + 1}: Height of terrace ${i} = ${height[i]}, Trapped Water = ${trappedAtTerrace}, Total Water Trapped = ${waterTrapped}`)
+    }
+    return waterTrapped
+}
+
+const height = [0, 1, 5, 2, 5, 3, 4, 3, 2, 1, 2, 1]
+const trappedWater = trapRainWater(height)
+console.log("Total Trapped Rainwater: ", trappedWater)

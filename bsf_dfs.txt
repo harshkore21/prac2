@@ -1,0 +1,84 @@
+// 2. Implement BFS and DFS
+
+class Graph{
+    constructor(){
+        this.node = []
+        this.adjacencyList = {}
+    }
+
+    addNode(node){
+        this.node.push(node)
+        this.adjacencyList[node] = []
+    }
+
+    addEdge(node1, node2){
+        this.adjacencyList[node1].push(node2)
+        this.adjacencyList[node2].push(node1)
+    }
+
+    bfs(startingNode){
+        const visited = {}
+        const result = []
+        const queue = [startingNode]
+
+        visited[startingNode] = true
+
+        while (queue.length > 0) {
+            const currentNode = queue.shift()
+            result.push(currentNode)
+            for(const neighbour of this.adjacencyList[currentNode]){
+                if (!visited[neighbour]) {
+                    visited[neighbour] = true
+                    queue.push(neighbour)
+                }
+            }
+        }
+        return result
+    }
+
+    dfs(startingNode){
+        const visited = {}
+        const result = []
+
+        const dfsHelper = (node) => {
+            visited[node] = true
+            result.push(node)
+        
+            for(const neighbour of this.adjacencyList[node]){
+                if (!visited[neighbour]) {
+                    dfsHelper(neighbour)
+                }
+            }
+        };
+
+        dfsHelper(startingNode)
+
+        return result
+    }   
+}
+
+const graph = new Graph()
+
+// Add Nodes
+graph.addNode(20)
+graph.addNode(23)
+graph.addNode(13)
+graph.addNode(9)
+graph.addNode(14)
+graph.addNode(19)
+graph.addNode(21)
+graph.addNode(27)
+graph.addNode(24)
+
+// Add Edges
+graph.addEdge(20,23)
+graph.addEdge(20,13)
+graph.addEdge(23,9)
+graph.addEdge(13,14)
+graph.addEdge(13,19)
+graph.addEdge(9,21)
+graph.addEdge(9,27)
+graph.addEdge(14,24)
+
+console.log("Breadth First Search (BFS): ", graph.bfs(20))
+console.log("Depth First Search (DFS): ", graph.dfs(20))

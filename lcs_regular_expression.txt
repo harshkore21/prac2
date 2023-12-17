@@ -1,0 +1,109 @@
+// 12. Implementation of Dynamic Programming – LCS, Regular Expression Matching
+
+// Longest Common Subsequence (LCS):
+function lcs(X, Y) {
+  const m = X.length;
+  const n = Y.length;
+  const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (X[i - 1] === Y[j - 1]) {dp[i][j] = dp[i - 1][j - 1] + 1;}
+      else {
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+      }
+    }
+  }return dp[m][n];
+}
+const str1 = "harsh";
+const str2 = "aarsh";
+const result = lcs(str1, str2);
+console.log("first string: " + str1);console.log("second string: " +
+str2);
+console.log("Length of Longest Common Subsequence:", result);
+
+
+// Regular Expression Matching:
+function isMatch(s, p) {
+  const dp = Array.from({ length: s.length + 1 }, () =>
+  Array(p.length + 1).fill(false)
+  );
+  dp[0][0] = true;
+  for (let j = 1; j <= p.length; j++) {
+    if (p[j - 1] === "*") {
+      dp[0][j] = dp[0][j - 2];
+    }
+  }
+  for (let i = 1; i <= s.length; i++) {
+    for (let j = 1; j <= p.length; j++) {
+      if (p[j - 1] === "." || p[j - 1] === s[i - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } 
+      else if (p[j - 1] === "*") {
+        dp[i][j] = dp[i][j - 2] || (dp[i - 1][j] && (s[i - 1] === p[j - 2] || p[j - 2] === "."));
+      }
+    }
+  }
+  return dp[s.length][p.length];
+}
+const s2 = "aab";
+const p2 = "c*a*b";
+const result2 = isMatch(s2, p2);
+console.log(`Regular Expression Matching for ${s2} and ${p2}:`,
+result2);
+
+// function longestCommonSubsequence(text1, text2) {
+//     const m = text1.length
+//     const n = text2.length
+  
+//     const dpLCS = new Array(m + 1).fill(null).map(() => new Array(n + 1).fill(0));
+  
+//     for (let i = 1; i <= m; i++) {
+//       for (let j = 1; j <= n; j++) {
+//         if (text1[i - 1] === text2[j - 1]) {
+//           dpLCS[i][j] = dpLCS[i - 1][j - 1] + 1
+//         } else {
+//           dpLCS[i][j] = Math.max(dpLCS[i - 1][j], dpLCS[i][j - 1])
+//         }
+//       }
+//     }
+  
+//     return dpLCS
+//   }
+  
+//   function isMatch(s, p) {
+//     const m = s.length
+//     const n = p.length
+  
+//     const dpRegex = new Array(m + 1).fill(false).map(() => new Array(n + 1).fill(false))
+  
+//     dpRegex[0][0] = true
+  
+//     for (let i = 0; i <= m; i++) {
+//       for (let j = 1; j <= n; j++) {
+//         if (p[j - 1] !== '*') {
+//           dpRegex[i][j] = i > 0 && (s[i - 1] === p[j - 1] || p[j - 1] === '.') && dpRegex[i - 1][j - 1]
+//         } else {
+//           dpRegex[i][j] = dpRegex[i][j - 2] || (i > 0 && (s[i - 1] === p[j - 2] || p[j - 2] === '.') && dpRegex[i - 1][j])
+//         }
+//       }
+//     }
+  
+//     return dpRegex
+//   }
+  
+//   const text1 = "abcde"
+//   const text2 = "ace"
+//   const s = "mississippi"
+//   const p = "mis*is*p*."
+  
+//   console.log("Longest Common Subsequence (LCS):")
+//   const dpLCS = longestCommonSubsequence(text1, text2)
+//   for (let row of dpLCS) {
+//     console.log(row)
+//   }
+  
+//   console.log("\nRegular Expression Matching:")
+//   const dpRegex = isMatch(s, p)
+//   for (let row of dpRegex) {
+//     console.log(row)
+//   }

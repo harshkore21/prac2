@@ -1,0 +1,35 @@
+// 4. Implement the following applications of the stack
+// b. Check for balanced parenthesis using stack
+
+function isBalancedParentheses(expression) {
+    const stack = []
+
+    const parenthesesMappping = {
+        '(': ')',
+        '[': ']',
+        '{': '}'
+    }
+
+    for(let char of expression){
+        if (char in parenthesesMappping) {
+            stack.push(char)
+        } else if(Object.values(parenthesesMappping).includes(char)) {
+            if (stack.length === 0 || parenthesesMappping[stack.pop()] !== char) {
+                return false; //Unbalanced
+            }
+        }
+    }
+    return stack.length === 0
+}
+
+if (isBalancedParentheses("[()]")) {
+    console.log("Yes, it is balanced")
+} else {
+    console.log("No, it is not balanced")
+}
+
+if (isBalancedParentheses("[()}")) {
+    console.log("Yes, it is balanced")
+} else {
+    console.log("No, it is not balanced")
+}

@@ -1,0 +1,153 @@
+// 1. Implement the following functions for Singly Linked List
+// a. Append(element): Inserts a new node at the end of the list
+// b. AddAtBeg(elment): Add Node at the beginning of the list
+// c. InsertAt(index): Inserts node at a particular position
+// d. InsertAfter(index): Inserts a node after a particular position
+// e. removeElement(element): Removes a particular element from the list
+// f. removeAt(index): Removes the element at a particular position
+// g. Search(element)
+// h. Display ()
+
+var head
+
+class singly{
+    constructor(data){
+        this.data = data
+        this.next = null
+    }
+}
+
+function append(data){
+    if(head==null){
+        head = new singly(data)
+    }
+    else{
+        var newnode = new singly(data)
+        var temp = head
+        while(temp.next!=null){
+            temp = temp.next
+        }
+        temp.next = newnode
+    }
+}
+
+function addAtBeg(data){
+    if(head==null){
+        head = new singly(data)
+    }
+    else{
+        var newnode = new singly(data)
+        newnode.next = head
+        head = newnode
+        console.log(data+" is inserted at the beginning")
+    }
+}
+
+function insertAt(data,index){
+    var newnode = new singly(data)
+    var tnode = head
+    var count = 0
+    while(tnode.next!=null){
+        tnode = tnode.next
+        count++
+        if(count == index-1){
+            newnode.next = tnode.next
+            tnode.next = newnode
+            console.log(data+" is inserted at index "+index)
+        }
+    }
+}
+
+function insertAfter(data,index){
+    var newnode = new singly(data)
+    var tnode = head
+    var count = 0
+    while(tnode.next!=null){
+        tnode = tnode.next
+        count++
+        if(count == index){
+            newnode.next = tnode.next
+            tnode.next = newnode
+            console.log(data+" is inserted after index "+index)
+        }
+    }
+}
+
+function removeElement(data){
+    var tnode = head
+    if(head==null){
+        console.log("Linked list is empty")
+    }
+    
+    while(tnode.next!=null){
+        if(tnode.next.data==data){
+            tnode.next = tnode.next.next
+            console.log(data+" is removed")
+        }
+        tnode = tnode.next
+    }
+}
+
+function removeAt(index){
+    var tnode = head
+    if(index==0){
+        tnode = head.next
+        head = tnode
+    }
+    else{
+        var i
+        for(i=0; i<index-1; i++){
+            tnode = tnode.next
+        }
+        console.log(tnode.next.data+" is removed")
+        tnode.next = tnode.next.next       
+    }
+}
+
+function search(x){
+    var tnode = head
+    while(tnode.next!=null){
+        
+        if(tnode.data==x){
+            console.log(x+" exists")
+        }
+        tnode = tnode.next
+    }
+}
+
+function display(){
+    var temp = head
+    console.log("Linked list")
+    while(temp!=null){
+        process.stdout.write(temp.data+" ")
+        temp = temp.next
+    }
+    console.log()
+}
+
+append(10)
+append(20)
+append(30)
+append(40)
+
+display()
+
+addAtBeg(5)
+display()
+
+insertAt(25,2)
+display()
+
+insertAfter(35,3)
+display()
+
+removeElement(20)
+display()
+
+removeAt(2)
+display()
+
+search(25)
+
+display()
+display()

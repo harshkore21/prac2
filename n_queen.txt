@@ -1,0 +1,61 @@
+// 13. Practical based on backtracking – N Queen’s problems
+
+function solveNQueens(n) {
+  const result = []
+  const board = Array.from({ length: n }, () => Array(n).fill('.'))
+
+  const isSafe = (row, col) => {
+    // Check the column
+    for (let i = 0; i < row; i++) {
+      if (board[i][col] === 'Q') {
+        return false
+      }
+    }
+
+    // Check the upper-left diagonal
+    for (let i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+      if (board[i][j] === 'Q') {
+        return false
+      }
+    }
+
+    // Check the upper-right diagonal
+    for (let i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
+      if (board[i][j] === 'Q') {
+        return false
+      }
+    }
+
+    return true
+  }
+
+  const solve = (row) => {
+    if (row === n) {
+      result.push(board.map(row => row.join('')));
+      return
+    }
+    for (let col = 0; col < n; col++) {
+      if (isSafe(row, col)) {
+        board[row][col] = 'Q'
+        solve(row + 1)
+        board[row][col] = '.'
+      }
+    }
+  }
+  solve(0)
+  return result
+}
+  
+function printQueens(queens) {
+  for (let i = 0; i < queens.length; i++) {
+    for (let j = 0; j < queens[i].length; j++) {
+      console.log(queens[i][j])
+    }
+    console.log("\n")
+  }
+}
+  
+const n = 4
+const solutions = solveNQueens(n)
+printQueens(solutions)
+  

@@ -1,0 +1,73 @@
+// 3. Implement Hashing
+
+class HashTable{
+    constructor(size = 11){
+        this.size = size
+        this.table = new Array(size)
+    }
+
+    // Hash Function
+    hash(key){
+        let hash = 0
+        for(let i = 0; i < key.length; i++){
+            hash = (hash + key.charCodeAt(i)) % this.size
+        }
+        return hash
+    }
+
+    // Insert a key value pair into the hash table
+    insert(key, value){
+        const index = this.hash(key)
+        if (!this.table[index]) {
+            this.table[index] = []
+        }
+        for(const entry of this.table[index]){
+            if (entry.key === key) {
+                entry.value = value
+                return
+            }
+        }
+        this.table[index].push({key, value})
+    }
+
+    // Retrive a value associated with a key
+    get(key){
+        const index = this.hash(key)
+        if (!this.table[index]) {
+            return undefined //Key not found
+        }
+        for(const entry of this.table[index]){
+            if (entry.key === key) {
+                return entry.value
+            }
+        }
+        return undefined //Key not found
+    }
+
+    // Remove a key value pair from the hash table 
+    remove(key){
+        const index = this.hash(key)
+        if (this.table[index]) {
+            this.table[index] = this.table[index].filter((entry) => entry.key !== key)
+        }
+    }
+}
+
+// Create a Hash Table
+const ht = new HashTable()
+
+// Insert key value pairs
+ht.insert('apple', 'red')
+ht.insert('banana', 'yellow')
+ht.insert('grape', 'purple')
+ht.insert('lemon', 'yellow')
+
+// Retrive values of key 
+console.log('Color of apple: ', ht.get('apple'))
+console.log('Color of banana: ', ht.get('banana'))
+console.log('Color of grape: ', ht.get('grape'))
+console.log('Color of lemon: ', ht.get('lemon'))
+
+// Remove a key value
+ht.remove('banana')
+console.log('Color of banana after removal: ', ht.get('banana'))

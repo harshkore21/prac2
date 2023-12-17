@@ -1,0 +1,49 @@
+// 4. Implement the following applications of the stack
+// a. Reverse a string using stack
+
+var top
+
+class stack{
+    constructor(data){
+        this.data = data
+        this.next = null
+    }
+}
+
+function push(data) {
+    if (top == null) {
+        top = new stack(data)
+    } else {
+        var newnode = new stack(data)
+        newnode.next = top
+        top = newnode
+    }
+}
+
+function splitString(text) {
+    console.log("String input: "+ text)
+    const array = text.split("")
+    // console.log(array)
+    var i
+    for (i = 0; i < array.length; i++) {
+       push(array[i])
+    
+    }
+}
+
+function display() {
+    if (top == null) {
+        console.log("Stack is Empty")
+    } 
+    else {
+        var temp = top
+        process.stdout.write("String output: ")
+        while (temp!=null) {
+            process.stdout.write(temp.data+"")
+            temp = temp.next
+        }
+    }
+}
+
+splitString("Hi I am Harsh")
+display()

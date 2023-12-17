@@ -1,0 +1,57 @@
+// 3. Implement the following stack functions using Linked List
+// a. Push(element): pushes a new element on the stack
+// b. Pop(): removes the element from the stack
+// c. Display()
+
+var top
+
+class stack{
+    constructor(data){
+        this.data = data
+        this.next = null
+    }
+}
+
+function push(data) {
+    if (top == null) {
+        top = new stack(data)
+        console.log(data+" is pushed")
+    } else {
+        var newnode = new stack(data)
+        newnode.next = top
+        top = newnode
+        console.log(data+" is pushed")
+    }
+}
+
+function pop() {
+    if (top == null) {
+        console.log("Stack is Empty")
+    } else {
+        var temp = top
+        top = top.next
+        console.log(temp.data+" is removed")
+    }
+}
+
+function display() {
+    if (top == null) {
+        console.log("Stack is Empty")
+    } else {
+        var temp = top
+        console.log("Stack: ")
+        while (temp!=null) {
+            process.stdout.write(temp.data+" ")
+            temp = temp.next
+        }
+        console.log()
+    }
+}
+
+push(10)
+push(20)
+pop()
+push(30)
+push(50)
+display()
+

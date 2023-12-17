@@ -1,0 +1,72 @@
+// 8. Implement the following operations of Priority Queue (using Arrray)
+// a. Insert(element)
+// b. DelQue()
+// c. Display()
+
+class priorityQueue{
+    constructor(){
+        this.queue = []
+    }
+
+    insert(element, priority){
+        const item = {element, priority}
+        let inserted = false
+
+        for(let i = 0; i < this.queue.length; i++){
+            if (priority < this.queue[i].priority) {
+                this.queue.splice(i, 0, item)
+                inserted = true
+                break
+            }
+        }
+
+        if(!inserted){
+            this.queue.push(item)
+        }
+
+        console.log(`Inserted ${element} with priority ${priority} into the priority queue`)
+    }
+
+    delQue(){
+        if (this.isEmpty()) {
+            console.log("Priority queue is Empty. Cannot delete")
+            return null
+        }
+
+        const highestPriorityElement = this.queue.shift();
+        console.log(`Deleted ${highestPriorityElement.element} with priority ${highestPriorityElement.priority} from the priority queue`)
+        return highestPriorityElement.element
+    }
+
+    display(){
+        if (this.isEmpty()) {
+            console.log("Priority queue is Empty")
+            return
+        }
+
+        console.log("Priority Queue elements: ")
+        for(let i = 0; i < this.queue.length; i++){
+            console.log(`Priority: ${this.queue[i].priority}, Element: ${this.queue[i].element}`)
+        }
+    }
+
+    isEmpty(){
+        return this.queue.length === 0
+    }
+}
+
+
+const PriorityQueue = new priorityQueue()
+
+PriorityQueue.insert("Task 1", 10)
+PriorityQueue.insert("Task 2", 20)
+PriorityQueue.insert("Task 3", 30)
+
+console.log()
+
+PriorityQueue.display()
+console.log()
+
+PriorityQueue.delQue()
+
+PriorityQueue.display()

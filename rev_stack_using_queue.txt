@@ -1,0 +1,93 @@
+// 6. Reverse stack using queue
+
+var front
+var rear
+var top
+
+class stack{
+    constructor(data){
+        this.data = data
+        this.next = null
+    }
+}
+
+class queue{
+    constructor(data){
+        this.data = data
+        this.next = null
+    }
+}
+
+function push(data) {
+    if (top == null) {
+        top = new stack(data)
+    } else {
+        var newnode = new stack(data)
+        newnode.next = top
+        top = newnode
+    }
+}
+
+function insert(data){
+    if (front == null) {
+        front = new queue(data)
+        rear = front
+    } 
+    else {
+        var newnode = new queue(data)
+        rear.next = newnode
+        rear = newnode
+    }
+}
+
+function pop() {
+    if (top == null) {
+    } else {
+        var temp = top
+        top = top.next
+        insert(temp.data)
+    }
+}
+
+function delQue() {
+    if (front == null) {
+        console.log("Queue is empty")
+    } 
+    else {
+        var temp = front
+        front = temp.next
+        temp.next = null
+        push(temp.data)
+    }
+}
+
+function display() {
+    if (top == null) {
+        console.log("Stack is Empty")
+    } 
+    else {
+        var temp = top
+        while (temp!=null) {
+            process.stdout.write(temp.data+" ")
+            temp = temp.next
+        }
+        console.log()
+    }
+}
+
+var i
+for(i = 1; i <= 5; i++){
+    push(i)
+}
+console.log("Input Stack: ")
+display()
+
+for(i = 1; i <= 5; i++){
+    pop()
+}
+
+for(i = 1; i <= 5; i++){
+    delQue()
+}
+console.log("Output Stack: ")
+display()

@@ -1,0 +1,27 @@
+// 7. Implement a recursive staircase algorithm
+
+function countWaysToClimbStairs(n) {
+    if (n === 0) {
+        console.log("Base case: No stairs left, end")
+        return 1 // Bottom most stair
+    } else if (n < 0) {
+        console.log("Base case: Negative Stairs, Enter correct no. of stairs")
+        return 0
+    }
+
+    // Recursive cases: Sum of ways from 1, 2 and 3 steps
+    const ways1 = countWaysToClimbStairs(n - 1)
+    const ways2 = countWaysToClimbStairs(n - 2)
+    const ways3 = countWaysToClimbStairs(n - 3)
+
+    const totalWays = ways1 + ways2 + ways3
+
+    console.log(`Step ${n}: Total ways = ${ways1} + ${ways2} + ${ways3} = ${totalWays}`)
+
+    return totalWays
+}
+
+const n = 4 // No. of Stairs
+console.log(`Calculating the number of ways to climb ${n} stairs`)
+const ways = countWaysToClimbStairs(n)
+console.log(`Number of ways to climb ${n} stairs: ${ways}`)
